@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonafide Portal - MKBU</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Times New Roman', Times, serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 0;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header (Footer જેવો જ કલર કર્યો છે) */
+        .site-header {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 12px 24px;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 3px solid #3b82f6;
+            text-align: left;
+        }
+
+        .header-brand {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .header-logo-icon {
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.3px;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+        }
+
+        .header-subtitle {
+            font-size: 11px;
+            color: #93c5fd;
+            margin-top: 1px;
+        }
+
+        .notice-bar {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #b45309;
+            padding: 14px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 25px auto 10px auto;
+            max-width: 850px;
+            width: calc(100% - 30px);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.08);
+            line-height: 1.5;
+        }
+        .notice-bar span {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .notice-bar strong {
+            color: #92400e;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 15px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .form-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+        }
+        .form-card h2 { 
+            margin: 0 0 20px 0; 
+            font-size: 20px; 
+            color: #1e3a8a; 
+            text-align: center; 
+            border-bottom: 2px solid #f8fafc;
+            padding-bottom: 12px;
+            font-weight: 700;
+        }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+        @media(min-width: 600px) {
+            .form-grid { grid-template-columns: 1fr 1fr; }
+            .full-width { grid-column: span 2; }
+        }
+        
+        .form-group { display: flex; flex-direction: column; }
+        label { font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #475569; }
+        
+        input, select { 
+            height: 44px; 
+            padding: 0 14px; 
+            background: #ffffff;
+            border: 1px solid #cbd5e1; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            color: #0f172a;
+            outline: none; 
+            transition: all 0.2s;
+        }
+        input:focus, select:focus { 
+            border-color: #2563eb; 
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); 
+        }
+
+        .captcha-wrapper { 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            padding: 18px; 
+            border-radius: 10px; 
+            margin-top: 5px; 
+            text-align: center; 
+        }
+        .captcha-divider { position: relative; text-align: center; margin-bottom: 12px; }
+        .captcha-divider::before { content: ''; position: absolute; top: 50%; left: 0; width: 100%; border-top: 1px dashed #cbd5e1; z-index: 1; }
+        .captcha-divider span { position: relative; background: #f8fafc; padding: 0 10px; color: #475569; font-size: 13px; font-weight: 600; z-index: 2; }
+        .captcha-box-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .captcha-question { background: #ffffff; border: 2px dashed #94a3b8; font-family: 'Courier New', Courier, monospace; font-size: 24px; font-weight: bold; letter-spacing: 2px; color: #0f172a; padding: 6px 18px; border-radius: 8px; }
+        .captcha-input { width: 110px !important; height: 44px; font-size: 18px; text-align: center; font-weight: bold; border: 2px solid #2563eb !important; }
+        .refresh-btn { background: #e2e8f0; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0 14px; height: 44px; cursor: pointer; font-size: 16px; transition: background 0.2s; }
+        .refresh-btn:hover { background: #cbd5e1; }
+
+        .btn-btn { 
+            background: #0f172a; 
+            color: white; 
+            border: none; 
+            height: 46px; 
+            border-radius: 8px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            margin-top: 10px; 
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn-btn:hover { background: #1e293b; }
+        .btn-btn:active { transform: scale(0.99); }
+
+        #certificate {
+            display: none;
+            background: white;
+            padding: 20px 45px 35px 45px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            color: #000;
+            margin-bottom: 40px;
+            border-radius: 12px;
+        }
+        .header-title-1 { font-size: 23px; margin: 0; font-weight: bold; }
+        .header-title-2 { font-size: 22px; margin-top: 1px; font-weight: bold; }
+        .dept-title { font-family: 'UnifrakturCook', serif; font-size: 38px; font-weight: 700; margin: 4px 0 2px 0; }
+        .campus-text { font-size: 16px; margin-bottom: 8px; }
+        .divider-line { border-bottom: 2px dashed #000; margin-bottom: 15px; }
+        .ref-date-row { display: flex; justify-content: space-between; font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+        .cert-main-title { font-family: 'UnifrakturCook', serif; font-size: 54px; font-weight: 700; margin: 10px 0 20px 0; }
+        .cert-body-lines { font-size: 21px; line-height: 2.1; text-align: center; }
+        .cert-body-lines div { font-weight: bold; }
+        .student-name { font-weight: bold; text-decoration: underline; text-transform: uppercase; font-size: 22px; }
+        .underline-text { text-decoration: underline; font-weight: bold; }
+        .cert-footer { margin-top: 30px; display: flex; justify-content: space-between; align-items: flex-end; text-align: left; font-size: 17px; font-weight: bold; }
+        .seal-circle { width: 130px; height: 130px; border: 2px dashed #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; text-align: center; margin: 0 auto; background: #fafafa; }
+
+        .site-footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 20px 15px;
+            font-size: 13px;
+            border-top: 3px solid #3b82f6;
+            margin-top: auto;
+            width: 100%;
+        }
+        .site-footer p { margin: 6px 0; }
+        .footer-highlight { color: #ffffff; font-weight: 600; }
+        .visitor-text { color: #60a5fa; font-size: 13px; margin-top: 4px; font-weight: 600; }
+
+        @media print {
+            @page { size: A4 portrait; margin: 5mm 12mm 10mm 12mm; }
+            body { background: white; padding: 0; opacity: 1 !important; animation: none !important; }
+            .site-header, .notice-bar, .form-card, .no-print, .site-footer { display: none !important; }
+            #certificate { display: block !important; border: none; box-shadow: none; padding: 0; width: 100%; margin-bottom: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-logo-icon">🏛️</div>
+    <div class="header-brand">
+        <div class="header-title">Bonafide Portal</div>
+        <div class="header-subtitle">Maharaja Krishnakumarsinhji Bhavnagar University</div>
+    </div>
+</header>
+
+<div class="notice-bar">
+    <span>⚠️</span>
+    <div><strong>Important Notice:</strong> After downloading/printing this certificate, it is mandatory to get it verified with an official Sign and Stamp from your respective department office.</div>
+</div>
+
+<div class="container">
+    <div class="form-card">
+        <h2>Bonafide Certificate Details Entry</h2>
+        <form class="form-grid" id="bonafideForm" onsubmit="generateCertificate(); return false;">
+            <div class="form-group full-width">
+                <label>વિદ્યાર્થીનું પૂરું નામ (Student Full Name)</label>
+                <input type="text" id="fullName" placeholder="Enter full name" maxlength="60" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>કોર્સ / વિભાગ (Department / Course)</label>
+                <select id="department" required>
+                    <option value="" disabled selected>Select Department</option>
+                    <option value="Sociology">Sociology</option>
+                    <option value="Psychology">Psychology</option>
+                    <option value="History">History</option>
+                    <option value="Social Work">Social Work</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>સેમિસ્ટર (Semester)</label>
+                <select id="semester" required>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                </select>
+            </div>
+            <div class="form-group full-width">
+                <label>જન્મ તારીખ (Date of Birth)</label>
+                <input type="date" id="dob" required>
+            </div>
+
+            <div class="form-group full-width captcha-wrapper">
+                <div class="captcha-divider">
+                    <span>Enter Security Code</span>
+                </div>
+                <div class="captcha-box-row">
+                    <div class="captcha-question" id="captchaText">4 + 1</div>
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" id="captchaInput" class="captcha-input" placeholder="?" required autocomplete="off">
+                    <button type="button" class="refresh-btn" onclick="generateCaptcha()" title="Refresh Captcha">🔄</button>
+                </div>
+            </div>
+
+            <button type="submit" id="genBtn" class="btn-btn full-width">Generate Certificate</button>
+        </form>
+    </div>
+
+    <!-- Final Printable Certificate -->
+    <div id="certificate">
+        <div class="header-title-1">Maharaja Krishnakumarsinhji Bhavnagar</div>
+        <div class="header-title-2">University, Bhavnagar</div>
+        <div class="dept-title" id="outDeptTitle">Department of Social Work</div>
+        <div class="campus-text">Sardar Vallabhbhai Patel Campus, Bhavnagar-364002</div>
+        
+        <div class="divider-line"></div>
+
+        <div class="ref-date-row">
+            <div>Ref. No. : PG/<span id="outRefDept">M.S.W.</span>/<span id="outRefNo">R/2026</span></div>
+            <div>Date : <span id="outDateTop"></span></div>
+        </div>
+
+        <div class="cert-main-title">Bonafide Certificate</div>
+
+        <div class="cert-body-lines">
+            <div>This is to certify that</div>
+            <div>kum./Shri <span class="student-name" id="outName"></span></div>
+            <div>Is a bonafide student of this Department,</div>
+            <div>Studying in <span id="outCourseType">M.A.</span> Semester :<span id="outSem">1</span> (<span id="outSubject">Master of Social Work</span>)</div>
+            <div>During the academic year <span id="outAcadYear"></span></div>
+            <div>For First/Second term.</div>
+            <div>To the best of my knowledge and belief</div>
+            <div>He/She bears good character and conduct.</div>
+            <div>His-Her Date of Birth is <span class="underline-text" id="outDob"></span></div>
+            <div>According to the general register.</div>
+            <div>Purpose: Bus-Railway Pass/Scholarship/</div>
+            <div>Other (if,specify)....................................................</div>
+        </div>
+
+        <div class="cert-footer">
+            <div>
+                <div><strong>Date:</strong> <span id="outDateBottom"></span></div>
+                <div><strong>Place:</strong> Bhavnagar</div>
+            </div>
+            <div class="seal-circle">
+                Seal of<br>Department
+            </div>
+            <div style="width: 80px;"></div>
+        </div>
+
+        <button class="btn-btn no-print" onclick="window.print()" style="margin-top: 25px; width: 100%;">📥 Print / Save as PDF</button>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <p>© 2026 <span class="footer-highlight">MKBU Bonafide Portal</span>. All Rights Reserved.</p>
+    <p>Developed & Technical Support by <span class="footer-highlight">Rutvik Solanki</span></p>
+    <p class="visitor-text">Total Visitors: <span id="visitorCount">...</span></p>
+</footer>
+
+<script>
+    let num1, num2, captchaAnswer;
+
+    async function initVisitorCounter() {
+        const countElem = document.getElementById('visitorCount');
+        if (!countElem) return;
+        let fallback = localStorage.getItem('mkbu_local_count') || 55;
+        fallback = parseInt(fallback, 10) + 1;
+        localStorage.setItem('mkbu_local_count', fallback);
+        countElem.innerText = fallback;
+    }
+
+    function generateCaptcha() {
+        num1 = Math.floor(Math.random() * 9) + 1;
+        num2 = Math.floor(Math.random() * 9) + 1;
+        captchaAnswer = num1 + num2;
+        const capElem = document.getElementById('captchaText');
+        if (capElem) capElem.innerText = `${num1} + ${num2}`;
+        const capInput = document.getElementById('captchaInput');
+        if (capInput) capInput.value = '';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const today = `${year}-${month}-${day}`;
+        
+        const dobInput = document.getElementById('dob');
+        if (dobInput) dobInput.setAttribute('max', today);
+
+        generateCaptcha();
+        initVisitorCounter();
+    });
+
+    function generateCertificate() {
+        const btn = document.getElementById('genBtn');
+        const rawName = document.getElementById('fullName').value.trim();
+        const dept = document.getElementById('department').value;
+        const sem = document.getElementById('semester').value;
+        const dobVal = document.getElementById('dob').value;
+        const captchaInputVal = document.getElementById('captchaInput').value.trim();
+        const userCaptcha = parseInt(captchaInputVal, 10);
+
+        if (!rawName || !dept || !sem || !dobVal) {
+            alert('કૃપા કરીને બધી વિગતો યોગ્ય રીતે ભરો.');
+            return;
+        }
+
+        if (isNaN(userCaptcha) || userCaptcha !== captchaAnswer) {
+            alert('કેપ્ચા કોડ ખોટો છે!');
+            generateCaptcha();
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "Generating...";
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.innerText = "Generate Certificate";
+            generateCaptcha();
+        }, 1500);
+
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth() + 1;
+        let startYear = currentMonth < 6 ? currentYear - 1 : currentYear;
+        const academicYearText = `${startYear}-${(startYear + 1).toString().slice(-2)}`;
+        const formattedToday = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${currentYear}`;
+
+        const dobParts = dobVal.split('-');
+        let formattedDob = dobVal;
+        if (dobParts.length === 3) {
+            formattedDob = `${dobParts[2]}/${dobParts[1]}/${dobParts[0]}`;
+        }
+
+        document.getElementById('outDeptTitle').innerText = "Department of " + dept;
+        
+        let subjectText = dept;
+        let deptCode = "Soc.";
+        let courseType = "M.A.";
+        
+        if (dept === "Psychology") {
+            deptCode = "Psy.";
+        } else if (dept === "History") {
+            deptCode = "His.";
+        } else if (dept === "Social Work") {
+            deptCode = "M.S.W.";
+            subjectText = "Master of Social Work";
+            courseType = "M.S.W.";
+        }
+
+        document.getElementById('outCourseType').innerText = courseType;
+        document.getElementById('outSubject').innerText = subjectText;
+        document.getElementById('outRefDept').innerText = deptCode;
+        document.getElementById('outName').innerText = rawName.toUpperCase();
+        document.getElementById('outSem').innerText = sem;
+        document.getElementById('outAcadYear').innerText = academicYearText;
+        document.getElementById('outDob').innerText = formattedDob;
+        document.getElementById('outRefNo').innerText = `R/${currentYear}`;
+        document.getElementById('outDateTop').innerText = formattedToday;
+        document.getElementById('outDateBottom').innerText = formattedToday;
+
+        const certElem = document.getElementById('certificate');
+        certElem.style.display = 'block';
+        certElem.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
